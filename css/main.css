@@ -1,0 +1,101 @@
+@import url("./normal.css");
+
+* {
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+
+body {
+  border: none;
+  background: #eee;
+}
+
+.mainHeader {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  margin: 0;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  font-weight: 100;
+  margin: 0;
+  padding: 0;
+}
+.addItem {
+  width: calc(100% - 2rem);
+  margin: 1rem;
+  position: relative;
+}
+
+.addItem input {
+  width: 100%;
+  line-height: 2.3rem;
+  height: 2.3rem;
+  background: #eee;
+  position: relative;
+  padding: 0 1rem;
+  border: none;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 0.25rem;
+  margin: 0;
+}
+
+.addItem button {
+  margin: 0;
+  width: 1.7rem;
+  height: 1.7rem;
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  background-color: #4caf50;
+  color: #fff;
+  text-shadow: 1px 1px 1px #388e3c;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.25rem;
+  border-bottom: 3px solid #388e3c;
+}
+
+/**/
+
+h2.countItems {
+  margin: 0;
+  padding: 0 0.25rem;
+  color: #999;
+  font-size: 0.8rem;
+}
+
+.items {
+  width: calc(100% - 2rem);
+  margin: 1rem;
+}
+.items ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+.items ul li {
+  border: 1px solid #999;
+  margin-bottom: 0.5rem;
+  padding: .5rem .5rem .5rem 1.75rem;
+  background: #fff;
+  border-radius: 0.25rem;
+  position: relative;
+
+}
+
+.items ul li::before {
+  content: "";
+  width: 1.25rem;
+  height: 1.25rem;
+  left: .25rem;
+  border-radius: 50%;
+  position: absolute;
+  background: #eee;
+}
