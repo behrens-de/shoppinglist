@@ -15,7 +15,13 @@ let item = {
     name: 'Example'
 }
 
-const myList = ['TEST 1', 'TEST 2'];
+let item2 = {
+    list: 'jp-default', // id of the List
+    done: false,
+    name: 'Example 2'
+}
+
+const myList = [item, item2];
 
 // Added the Items to the Array - myList
 function addItem() {
@@ -33,7 +39,7 @@ function addItem() {
 // Ckecked if the addItem is valid
 function validateItem(input) {
     if (input.length > 2) {
-        myList.push(input);
+        myList.push({name: input});
         loadList();
         return true;
     }
@@ -49,8 +55,10 @@ function loadList() {
     myList.forEach((item) => {
         // Creates Items  
         const li = document.createElement('li');
-        li.classList.add('test');
-        li.innerHTML = item;
+        if(item.done){
+            li.classList.add('active');
+        }
+        li.innerHTML = item.name;
         itmes.appendChild(li);
     });
     countItems();
@@ -59,7 +67,7 @@ function loadList() {
 
 // If item is done
 function selectItem() {
-    const items = document.querySelectorAll('.test');
+    const items = document.querySelectorAll('.items li');
     items.forEach((item) => {
         item.addEventListener('click', clickItem);
     })

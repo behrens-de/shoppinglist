@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,26 +8,36 @@
     <title>Shoppinglist</title>
     <link rel="stylesheet" href="./css/main.css">
 </head>
-<body>
-    <header class="mainHeader">
-        <h1>Shoppinglist</h1>
-        <form class="addItem">
-            <input type="text">
-            <button>+</button>
-        </form>
-    </header>
 
-    <div class="items">
-        <h2 class="countItems">{123} Einträge</h2>
-        <ul>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-            <li>Item 1</li>
-        </ul>
+<body>
+    <div class="app">
+
+        <header class="mainHeader">
+            <!-- <h1>Shoppinglist</h1> -->
+            <div class="allLists">
+                <div class="currentList">MusterListe</div>
+            </div>
+            <form class="addItem">
+                <input type="text" placeholder="Item...">
+                <button>+</button>
+            </form>
+        </header>
+
+        <div class="items">
+            <h2 class="countItems">{123} Einträge</h2>
+            <ul>
+                <li>Item 1</li>
+                <li>Item 1</li>
+                <li>Item 1</li>
+                <li>Item 1</li>
+                <li>Item 1</li>
+            </ul>
+        </div>
+
+        <div style="height: 200vh; width: 100%;"></div>
     </div>
 
     <script src="./js/main.js"></script>
 </body>
+
 </html>

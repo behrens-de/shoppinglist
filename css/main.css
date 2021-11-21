@@ -9,6 +9,12 @@ body {
   background: #eee;
 }
 
+.app{
+    max-width: 600px;
+    margin: auto;
+    min-height: 100vh;
+}
+
 .mainHeader {
   background: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
@@ -18,6 +24,9 @@ body {
   margin: 0 .5rem;
   width: calc(100% - 1rem);
   border-radius: 0 0 .25rem .25rem;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
 }
 
 h1 {
@@ -30,23 +39,20 @@ h1 {
 }
 
 .addItem {
-  width: calc(100% - 2rem);
-  margin: .5rem 1rem;
+  width: calc(100%);
   position: relative;
 }
 
 .addItem input {
-  width: 100%;
+  width: calc(100% - 1rem);
   line-height: 2.3rem;
   height: 2.3rem;
-  background: #eee;
   position: relative;
   padding: 0 1rem;
   border: none;
-  border: 1px solid #ccc;
+  margin: .5rem;
+  border-bottom: 2px solid #999;
   outline: none;
-  border-radius: 0.25rem;
-  margin: 0;
 }
 
 .addItem button {
@@ -54,8 +60,8 @@ h1 {
   width: 1.7rem;
   height: 1.7rem;
   position: absolute;
-  top: 0.3rem;
-  right: 0.3rem;
+  top: 0.6rem;
+  right: 0.7rem;
   background-color: #4caf50;
   color: #fff;
   text-shadow: 1px 1px 1px #388e3c;
@@ -69,7 +75,7 @@ h1 {
 
 h2.countItems {
   margin: 0;
-  padding: 0 0.25rem;
+  padding: .5rem 0;
   color: #999;
   font-size: 0.8rem;
 }
@@ -122,4 +128,16 @@ h2.countItems {
     position: absolute;
     background:url('./../img/checking-mark.png') 50% 50% no-repeat;
     background-size: 60%;
+  }
+
+
+  /**/
+
+  .allLists{
+      width: 100%; border-bottom: 1px solid #ddd;
+      text-align: center;
+      background:#eee;
+      padding: .5rem;
+
+
   }
