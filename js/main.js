@@ -2,7 +2,7 @@
 
 const lists = [
     {
-        active: false,
+        active: true,
         id: 'jp-default',
         name: 'Allgemein'
     },
@@ -12,7 +12,7 @@ const lists = [
         name: 'Penny'
     },
     {
-        active: true,
+        active: false,
         id: 'jp-aldi',
         name: 'Aldi'
     }
@@ -135,7 +135,7 @@ function loadList() {
             itmes.appendChild(li);
         }
     });
-    countItems();
+    countCurrentItems();
     selectItem();
 }
 
@@ -164,10 +164,21 @@ function clickItem() {
 }
 
 // Count the Items
-function countItems() {
-    const quanty = myList.length;
+function countCurrentItems() {
+    const quanty = countListItems();
     const headline = document.querySelector('.countItems');
     headline.innerHTML = `${quanty} Einträge`;
+}
+
+function countListItems(listId = getActiveList().id){
+    const myListItems = myList.filter((item)=>{
+        if(item.list === listId){
+            return true;
+        }
+    });
+
+    return myListItems.length;
+
 }
 
 // set active List
