@@ -38,7 +38,7 @@ const myList = [item, item2];
 function generateID() {
     var d = new Date().getTime();
     var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-    var uuid = 'xxxxxxxx'.replace(/[xy]/g, function (c) {
+    var uuid = 'xxxx-xxxx-xxxx-xxxx'.replace(/[xy]/g, function (c) {
         var r = Math.random() * 16;
         if (d > 0) {
             var r = (d + r) % 16 | 0;
@@ -60,7 +60,7 @@ function loadLists() {
     lists.forEach((list) => {
         const li = document.createElement('li');
         li.dataset.listid = list.id;
-        li.innerHTML = list.name;
+        li.innerHTML = `${list.name} (${countListItems(list.id)})`;
         ul.appendChild(li);
     });
 
@@ -137,6 +137,7 @@ function loadList() {
     });
     countCurrentItems();
     selectItem();
+    loadLists();
 }
 
 // If item is done
@@ -151,34 +152,30 @@ function clickItem() {
     // Toggle (.active)
     const activeClassName = "active";
     console.log(this.dataset.itemid);
-
     myList.map((item) => {
         if (item.id === this.dataset.itemid) {
             item.done = this.classList.contains(activeClassName) ? false : true;
         }
     })
-
     this.classList.contains(activeClassName) ? this.classList.remove(activeClassName) : this.classList.add(activeClassName);
-
     loadList();
 }
 
-// Count the Items
+// Count and display the Items of the Current List
 function countCurrentItems() {
     const quanty = countListItems();
     const headline = document.querySelector('.countItems');
     headline.innerHTML = `${quanty} Einträge`;
 }
 
+// Count Items of any List (default = current List)
 function countListItems(listId = getActiveList().id){
     const myListItems = myList.filter((item)=>{
         if(item.list === listId){
             return true;
         }
     });
-
     return myListItems.length;
-
 }
 
 // set active List
