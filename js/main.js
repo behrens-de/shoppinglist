@@ -1,10 +1,11 @@
 // JP BHERENS - SHOPPING LIST
 
 
-let lists = [
+const lists = [
     {
+        active: true,
         id: 'jp-default',
-        name: 'Allgemein'
+        name: 'Allgemeine'
     }
 ];
 
@@ -39,7 +40,11 @@ function addItem() {
 // Ckecked if the addItem is valid
 function validateItem(input) {
     if (input.length > 2) {
-        myList.push({name: input});
+        myList.push({
+            list: getActiveList().id,
+            done: false,
+            name: input
+        });
         loadList();
         return true;
     }
@@ -86,10 +91,28 @@ function countItems() {
     headline.innerHTML = `${quanty} Einträge`;
 }
 
+// set active List
+function getActiveList(){
+    let activeList;
+    lists.forEach((list)=>{
+        if(list.active){
+            activeList = list; 
+        }
+    });
+    return activeList;
+}
+function setActiveList(){}
+
+// Zeigt die Aktuelle Liste an
+function displayActiveList(){
+    const currentList = document.querySelector('.currentList');
+    currentList.innerHTML = getActiveList().name;
+}
 
 function init() {
     addItem();
     loadList();
+    displayActiveList();
 
 }
 
