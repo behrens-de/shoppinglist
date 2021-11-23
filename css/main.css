@@ -106,7 +106,6 @@ h2.countItems {
 
 .items ul li.itemSettings div {
     right: 0;
-    position: absolute;
     z-index: 99999 !important;
   }
 
