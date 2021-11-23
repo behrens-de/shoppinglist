@@ -120,6 +120,9 @@ function validateItem(input) {
 
 // Display the List
 function loadList() {
+    // Später wieder entfernen (für den Update Dialog)
+    document.querySelector('.dialog').innerHTML = '';
+
     const itmes = document.querySelector('.items ul');
     itmes.innerHTML = '';
 
@@ -165,19 +168,17 @@ function clickItem() {
 function countCurrentItems() {
     const quanty = countListItems();
     const done = countListItemsDone();
-    let procent = Math.round(done / quanty * 100);
-    if(quanty<=1){
-        procent = 0;
-    }
-    const process = document.querySelector('.progress');
-    
-
-    process.style.width = `${procent}%`;
-
     const headline = document.querySelector('.countItems');
+    const process = document.querySelector('.progress');
 
+    let procent = Math.round(done / quanty * 100);
+    if (quanty < 1) {
+        headline.innerHTML = `Noch kein Eintrag auf dieser Liste`;
+    } else {
 
-    headline.innerHTML = `${quanty}/${done} Einträge (${procent})`;
+        process.style.width = `${procent}%`;
+        headline.innerHTML = `${quanty}/${done} Einträge (${procent})`;
+    }
 }
 
 // Count Items of any List (default = current List)
@@ -234,12 +235,68 @@ function showLists() {
     });
 }
 
+
+function editList(){
+    const btn = document.querySelector('.editList');
+    btn.addEventListener('click',editListDialog);
+}
+
+function editListDialog(){
+    createListDialog();
+}
+
+function createListDialog(){
+    const dialog = document.querySelector('.dialog');
+    dialog.innerHTML = null;
+    const headline = document.createElement('h1');
+    const input = document.createElement('input');
+    input.className = 'updateListName';
+    const button = document.createElement('button');
+    button.innerText = 'Update';
+    button.addEventListener('click', updateListname);
+
+
+    const currentList = getActiveList();
+
+    input.value = currentList.name;
+    headline.innerText = 'Name ändern';
+
+    dialog.appendChild(headline);
+    dialog.appendChild(input);
+    dialog.appendChild(button);
+}
+
+function updateListname(){
+    const newName = document.querySelector('.updateListName');
+    const currentList = getActiveList();
+
+    if(currentList.name  !== newName.value && newName.value.length > 2){
+        //alert(`update ${currentList.name} - ${newName.value}`);
+        lists.map((list)=>{
+
+            if(list.id === currentList.id){
+                list.name = newName.value;
+            }
+
+        });
+        document.querySelector('.dialog').innerHTML = '';
+        init();
+
+
+    } else{
+        alert(`Ein Fehler ist Aufgetreten`);
+        newName.value = currentList.name;
+    }
+}
+
+
 function init() {
     addItem();
     loadList();
     displayActiveList();
     loadLists();
     showLists();
+    editList();
 }
 
 init();
