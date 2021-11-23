@@ -15,6 +15,11 @@ const lists = [
         active: false,
         id: 'jp-aldi',
         name: 'Aldi'
+    },
+    {
+        active: false,
+        id: 'jp-dm',
+        name: 'DM'
     }
 ];
 
@@ -195,6 +200,24 @@ function setActiveList() { }
 function displayActiveList() {
     const currentList = document.querySelector('.currentList');
     currentList.innerHTML = getActiveList().name;
+    document.querySelector('.closeLists').click();
+}
+
+
+// Die Listen anzeigen
+
+function showLists(){
+    const div = document.querySelector('.lists');
+    const btnOpen = document.querySelector('.openLists');
+    const btnClose = document.querySelector('.closeLists');
+
+    btnOpen.addEventListener('click',()=>{
+        div.classList.add('listsOpen');
+    });
+
+    btnClose.addEventListener('click',()=>{
+        div.classList.remove('listsOpen');
+    });  
 }
 
 function init() {
@@ -202,6 +225,7 @@ function init() {
     loadList();
     displayActiveList();
     loadLists();
+    showLists();
 
 }
 

@@ -1,5 +1,4 @@
 @import url("./normal.css");
-
 * {
   box-sizing: border-box;
 }
@@ -7,6 +6,7 @@
 body {
   border: none;
   background: #eee;
+  font-family:  monospace;
 }
 
 .app {
@@ -150,27 +150,77 @@ h2.countItems {
   height: 2rem;
   position: absolute;
   top: 0;
+  text-indent: -9999px;
+  opacity: .5;
 }
 
 .openLists {
-  background: #999;
+  background: url('./../img/lists.png')  50% 50% no-repeat;
+  background-size: 70%;
   left: 0;
 }
 
 .editList {
-  background: yellow;
+    background: url('./../img/edit.png')  50% 50% no-repeat;
+    background-size: 70%;
   right: 0;
+}
+
+.closeLists{
+    position: absolute;
+    background: url('./../img/close.png')  50% 50% no-repeat;
+    background-size: 100%;
+    top: 0;
+    right: 0;
+    text-indent: -9999px;
+    width: 2rem;
+    height: 2rem;
+    opacity: .5;
 }
 
 /**/
 .lists{
     width: 100vw;
     height: 100vh;
+    max-width: 500px;
     position: absolute;
     top:0;
     left: -100vw;
     z-index: 9999;
     background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(5px);
-    
+    backdrop-filter: blur(5px); 
+    transition: all .5s;  
 }
+
+.lists h2{
+    color: rgba(255, 255, 255, 0.75);
+    margin: 1rem;
+    font-weight: 100;
+}
+
+.lists ul{
+    margin: .25rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    flex-flow: row wrap;
+}
+
+.lists ul li{
+    width: calc(50% - 1rem);
+    margin: .25rem;
+    background: rgba(255, 255, 255, 0.95);
+    padding: .5rem;
+    border-radius: .25rem;
+}
+
+
+.listsOpen{
+    left: 0 !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.75);
+}
+
+
+
