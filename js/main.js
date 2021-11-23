@@ -39,7 +39,6 @@ let item2 = {
 
 const myList = [item, item2];
 
-
 function generateID() {
     var d = new Date().getTime();
     var d2 = (performance && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
@@ -57,8 +56,6 @@ function generateID() {
     return uuid;
 };
 
-
-
 function loadLists() {
     const ul = document.querySelector('.lists ul');
     ul.innerHTML = '';
@@ -71,7 +68,6 @@ function loadLists() {
 
     selectList();
 }
-
 
 function selectList() {
     const liList = document.querySelectorAll('.lists li');
@@ -122,7 +118,6 @@ function validateItem(input) {
     return false;
 }
 
-
 // Display the List
 function loadList() {
     const itmes = document.querySelector('.items ul');
@@ -169,18 +164,39 @@ function clickItem() {
 // Count and display the Items of the Current List
 function countCurrentItems() {
     const quanty = countListItems();
+    const done = countListItemsDone();
+    let procent = Math.round(done / quanty * 100);
+    if(quanty<=1){
+        procent = 0;
+    }
+    const process = document.querySelector('.progress');
+    
+
+    process.style.width = `${procent}%`;
+
     const headline = document.querySelector('.countItems');
-    headline.innerHTML = `${quanty} Einträge`;
+
+
+    headline.innerHTML = `${quanty}/${done} Einträge (${procent})`;
 }
 
 // Count Items of any List (default = current List)
-function countListItems(listId = getActiveList().id){
-    const myListItems = myList.filter((item)=>{
-        if(item.list === listId){
+function countListItems(listId = getActiveList().id) {
+    const myListItems = myList.filter((item) => {
+        if (item.list === listId) {
             return true;
         }
     });
     return myListItems.length;
+}
+
+function countListItemsDone(listId = getActiveList().id) {
+    const myListItemsDone = myList.filter((item) => {
+        if (item.list === listId && item.done === true) {
+            return true;
+        }
+    });
+    return myListItemsDone.length;
 }
 
 // set active List
@@ -203,21 +219,19 @@ function displayActiveList() {
     document.querySelector('.closeLists').click();
 }
 
-
 // Die Listen anzeigen
-
-function showLists(){
+function showLists() {
     const div = document.querySelector('.lists');
     const btnOpen = document.querySelector('.openLists');
     const btnClose = document.querySelector('.closeLists');
 
-    btnOpen.addEventListener('click',()=>{
+    btnOpen.addEventListener('click', () => {
         div.classList.add('listsOpen');
     });
 
-    btnClose.addEventListener('click',()=>{
+    btnClose.addEventListener('click', () => {
         div.classList.remove('listsOpen');
-    });  
+    });
 }
 
 function init() {
@@ -226,7 +240,6 @@ function init() {
     displayActiveList();
     loadLists();
     showLists();
-
 }
 
 init();
