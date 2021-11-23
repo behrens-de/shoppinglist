@@ -134,7 +134,9 @@ function loadList() {
             if (item.done) {
                 li.classList.add('active');
             }
-            li.innerHTML = item.name;
+            li.innerHTML = `${item.name}<div>TEST</div>`;
+
+
             itmes.appendChild(li);
         }
     });
@@ -147,6 +149,25 @@ function loadList() {
 function selectItem() {
     const items = document.querySelectorAll('.items li');
     items.forEach((item) => {
+        
+        const hammer = new Hammer(item);
+        let panTyp;
+        hammer.on("panleft panright panup pandown tap press panend", function(ev) {
+                
+                if(ev.type === 'panend' && panTyp === 'panleft'){
+                    console.log('PAN LEFT');
+                    item.classList.add('itemSettings');
+                } 
+                else if(ev.type === 'panend' && panTyp === 'panright'){
+                    console.log('PAN RIGHT');
+                    item.classList.remove('itemSettings');
+                } 
+                else {
+                    panTyp = ev.type
+                }
+        });
+
+
         item.addEventListener('click', clickItem);
     });
 }
@@ -175,9 +196,8 @@ function countCurrentItems() {
     if (quanty < 1) {
         headline.innerHTML = `Noch kein Eintrag auf dieser Liste`;
     } else {
-
         process.style.width = `${procent}%`;
-        headline.innerHTML = `${quanty}/${done} Einträge (${procent})`;
+        headline.innerHTML = `${done}/${quanty} Einträge`;
     }
 }
 
@@ -236,16 +256,16 @@ function showLists() {
 }
 
 
-function editList(){
+function editList() {
     const btn = document.querySelector('.editList');
-    btn.addEventListener('click',editListDialog);
+    btn.addEventListener('click', editListDialog);
 }
 
-function editListDialog(){
+function editListDialog() {
     createListDialog();
 }
 
-function createListDialog(){
+function createListDialog() {
     const dialog = document.querySelector('.dialog');
     dialog.innerHTML = null;
     const headline = document.createElement('h1');
@@ -266,15 +286,27 @@ function createListDialog(){
     dialog.appendChild(button);
 }
 
-function updateListname(){
+function updateListname() {
     const newName = document.querySelector('.updateListName');
     const currentList = getActiveList();
 
-    if(currentList.name  !== newName.value && newName.value.length > 2){
-        //alert(`update ${currentList.name} - ${newName.value}`);
-        lists.map((list)=>{
+    // TODO: Namen dürfen nicht doppelt vergeben werden
+    let isSetListName = true;
 
-            if(list.id === currentList.id){
+    lists.forEach((list) => {
+        if (list.name.toLowerCase === newName.value.toLowerCase) {
+            isSetListName = false;
+        }
+    });
+
+    console.log(isSetListName);
+
+    if (currentList.name !== newName.value && newName.value.length > 2 && !isSetListName) {
+
+        //alert(`update ${currentList.name} - ${newName.value}`);
+        lists.map((list) => {
+
+            if (list.id === currentList.id) {
                 list.name = newName.value;
             }
 
@@ -283,7 +315,7 @@ function updateListname(){
         init();
 
 
-    } else{
+    } else {
         alert(`Ein Fehler ist Aufgetreten`);
         newName.value = currentList.name;
     }
