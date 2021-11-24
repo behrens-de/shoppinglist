@@ -1,7 +1,14 @@
 
 class App {
 
+    constructor(user, list) {
+        this._user = user ?? null;
+        this._list = list ?? null;
+
+    }
+
     _maxLists = 10;
+    _self = this;
     // Erstellt eine ID
     generateID(format = 'xxxx-xxxx-xxxx-xxxx') {
         var d = new Date().getTime();
@@ -22,67 +29,91 @@ class App {
 
 
     // Erstellt eine neue Liste
-    addList(user, list) {
+    addList() {
         const form = document.querySelector('.addList');
         const input = form.querySelector('input');
 
-        const getList = JSON.parse(list.get()) ?? [];
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
 
+            const getList = JSON.parse(this._list.get()) ?? [];
             const val = input.value;
 
-            if (list.exist(val) || val.length < 2 || getList.length >= this._maxLists) {
-                
-                if(list.exist(val)){
+            if (this._list.exist(val) || val.length < 2 || getList.length >= this._maxLists) {
+
+                if (this._list.exist(val)) {
                     this.dialog(`Eine Liste mit dem Namen ${val} exestiert schon`);
                 }
-                if(val.length < 2){
+                if (val.length < 2) {
                     this.dialog(`Eingabe ist zu Kurz`);
                 }
 
-                if(getList.length >= this._maxLists){
+                if (getList.length >= this._maxLists) {
                     this.dialog(`Sie können maximal ${this._maxLists} Listen anlegen`);
                 }
-                
+
             } else {
-                list.set({
+                this._list.set({
                     name: input.value,
-                    id: user.getId() + this.generateID('xxxxx')
+                    id: this._user.getId() + this.generateID('xxxxx')
                 });
                 input.value = '';
-                this.renderList(list);
+                this.renderList();
             }
         });
     }
 
-    renderList(list){
+    renderList() {
         const target = document.querySelector('.myLists');
         target.innerHTML = null;
-        const getList = JSON.parse(list.get()) ?? [];
+        const getList = JSON.parse(this._list.get()) ?? [];
 
-        if(getList.length < 1){
+        if (getList.length < 1) {
             const div = document.createElement('div');
             div.classList.add('nolists');
-            div.innerHTML = 'Noch keine Liste vorhanden';
+            div.innerHTML = 'Keine Liste vorhanden';
             target.appendChild(div);
             return;
         }
 
-        getList.forEach((liste)=>{
+        getList.forEach((liste) => {
             const name = liste.name;
             const div = document.createElement('div');
             div.classList.add('list');
-            div.innerHTML = name;
+            
 
+            const circle = document.createElement('div');
+            circle.innerHTML = name[0].toUpperCase();
+            circle.classList.add('list-circle');
+
+            const label = document.createElement('div');
+            label.innerHTML = name;
+            label.classList.add('list-label');
+
+            const deleteBtn = document.createElement('div');
+            deleteBtn.classList.add('deleteList');
+            deleteBtn.dataset.id = liste.id;
+            deleteBtn.innerHTML = 'Löschen';
+            deleteBtn.addEventListener('click', ()=>{
+                this.deleteList(liste.id);
+                this.renderList();
+            });
+
+            div.appendChild(circle);
+            div.appendChild(label);
+            div.appendChild(deleteBtn);
             target.appendChild(div);
-
         });
-
     }
 
-    dialog(msg){
+    deleteList(id) {
+        const oldList = JSON.parse(this._list.get()) ?? [];
+        const newList = oldList.filter((l) => l.id !== id)
+        list.update(newList);
+    }
+
+    dialog(msg) {
         alert(msg);
     }
 }
@@ -107,6 +138,10 @@ class User {
 
 class List {
     _storageKey = 'lists';
+
+    update(newData){
+        localStorage.setItem(this._storageKey, JSON.stringify(newData));
+    }
 
     set({ name = "NO NAME", id = "XXX" }) {
         const newList = {
@@ -148,17 +183,17 @@ class List {
 
 
 
-const app = new App;
 const user = new User;
 const list = new List;
+const app = new App(user, new List);
 
 // Erstellt eine USERID wenn noch nicht vorhanden
 if (!user.isset()) {
     user.create(app.generateID(format = 'xxxxxxxx'));
 }
 
-app.addList(user, list);
-app.renderList(list);
+app.addList();
+app.renderList();
 
 
 

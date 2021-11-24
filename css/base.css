@@ -5,6 +5,8 @@
 
 :root {
   --primary-color: blue;
+  --primary-deep-dark: #1c2124;;
+  --primary-dark: #262D31;;
 }
 
 body {
@@ -29,7 +31,6 @@ body {
 }
 
 .frame {
-  padding-top: 3rem;
   min-width: 100vw;
   max-width: 100vw;
   width: 100vw;
@@ -44,10 +45,8 @@ body {
 
 .app-header {
   width: 100vw;
-  background: #262D31;
-  position: fixed;
+  background: var(--primary-deep-dark);
   display: flex;
-  height: 3rem;
   top: 0;
   margin-top: 0;
   justify-content: center;
@@ -55,7 +54,7 @@ body {
 }
 .app-name {
   padding: 0.75rem;
-  font-size: 1.25rem;
+  font-size: .7rem;
   color: #fff;
 }
 
@@ -74,13 +73,87 @@ body {
   color: #fff;
 }
 
+.my-lists-header{
+padding:  .5rem 2rem 1rem 2rem;
+background: var(--primary-dark);
+border-bottom: 1px dashed rgba(79, 62, 62, 0.1);
+}
 
+.my-lists-header h1{
+  margin: .5rem 0;
+  font-size: .9rem;
+  padding: 0 .5rem;
+  font-weight: 100;
+  color: rgba(255, 255, 255, 0.3);
+}
 
-.list{
+.my-lists-header form{
   width: 100%;
   background: #fff;
-  padding: .5rem;
-  margin: .25rem 0;
+  display: flex;
+  border-radius: .5rem;
+  overflow: hidden;
+  box-shadow: 0 0 .5rem rgba(0, 0, 0, .2);
+}
+.my-lists-header form input{
+  flex-grow: 1;
+  line-height: 1.5rem;
+  background: transparent ;
+  padding: 0 .5rem;
+  border: none;
+  outline: none;
+}
+
+.my-lists-header form input::placeholder{
+  color: rgba(0, 0, 0, .2);
+}
+
+.my-lists-header form button{
+  background: rgb(60, 142, 60);
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  margin: .25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-weight: bold;
+  border-radius: .25rem;
+}
+
+
+.myLists{
+  margin: 0 1rem;
+}
+.list{
+  width: 100%;
+  background: #b7c0c5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.list-circle{
+  line-height: 1.6rem;
+  width: 1.6rem;
+  margin: 0 .2rem;
+  background: #cad4d8;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+  color: rgba(0, 0, 0, .3);
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.list-label{
+  line-height: 2rem;
+  padding: 0 .5rem;
+  flex-grow: 1;
+  font-size: 1rem;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .nolists{
