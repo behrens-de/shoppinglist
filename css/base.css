@@ -6,7 +6,8 @@
 :root {
   --primary-color: blue;
   --primary-deep-dark: #1c2124;;
-  --primary-dark: #262D31;;
+  --primary-dark: #333b3f;;
+  --primary-light: #c9d0d3;;
 }
 
 body {
@@ -37,6 +38,7 @@ body {
   height: 100vh;
   overflow: auto;
   overflow: auto;
+  background: var(--primary-light);
 }
 
 .frame:nth-child(even) {
@@ -132,8 +134,9 @@ border-bottom: 1px dashed rgba(79, 62, 62, 0.1);
   align-items: center;
   justify-content: space-between;
   border-radius: 1rem;
-  margin: 0.5rem 0;
+  margin: .75rem 0;
   overflow: hidden;
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, .2), -1px -2px 0px rgba(255, 255, 255, 0.2);
 }
 
 .list-circle{
