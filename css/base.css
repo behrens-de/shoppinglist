@@ -1,0 +1,68 @@
+@import url("./normal.css");
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: blue;
+}
+
+body {
+  border: none;
+  background: #eee;
+  font-family: monospace;
+}
+
+#app {
+  width: 100vw;
+  overflow: hidden;
+}
+
+#wrap {
+  width: 300vw;
+  display: flex;
+  flex-direction: row;
+  transition: left 0.5s;
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.frame {
+  min-width: 100vw;
+  height: 80vh;
+  overflow: auto;
+}
+
+.frame:nth-child(even) {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.app-header {
+  width: 100vw;
+  background: blue;
+  display: flex;
+  position: sticky;
+  top: 0;
+  margin-top: 0;
+  justify-content: center;
+}
+
+.app-footer {
+  width: 100vw;
+  background: blue;
+  display: flex;
+  justify-content: center;
+}
+.app-name {
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.app-footer > .app-name {
+  padding: 0.5rem;
+  font-size: 0.75rem;
+  opacity: .6;
+  color: #fff;
+}
