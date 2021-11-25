@@ -86,8 +86,18 @@ class App {
             circle.innerHTML = name[0].toUpperCase();
             circle.classList.add('list-circle');
 
-            const label = document.createElement('div');
-            label.innerHTML = name;
+            const label = document.createElement('input');
+            label.value = name;
+            label.disabled = true;
+            label.addEventListener('blur',(i)=>{
+                console.log(name);
+                console.log(liste.id);
+                console.log(label.value);
+                label.disabled = true;
+            });
+
+            // Wenn Enter
+
             label.classList.add('list-label');
 
             const settings = document.createElement('div');
@@ -117,6 +127,9 @@ class App {
             const edit = document.createElement('div');
             edit.classList.add('editList');
             edit.innerHTML = 'Ändern';
+            edit.addEventListener('click',()=>{
+                label.disabled = false;
+            });
 
             // Delet Clicked element
             const deleteBtn = document.createElement('div');
@@ -134,10 +147,18 @@ class App {
             settings.appendChild(edit);
             settings.appendChild(deleteBtn);
             div.appendChild(settings);
-            target.appendChild(div);
 
+            target.appendChild(div);
+        });
+
+        //this.deleteAllList();
+        const deleteAllList =document.createElement('div');
+        deleteAllList.innerHTML = 'Alle Listen und Einträge löschen';
+        deleteAllList.addEventListener('click', ()=>{
             this.deleteAllList();
         });
+
+        target.appendChild(deleteAllList);
     }
 
     deleteList(id) {
@@ -148,7 +169,9 @@ class App {
 
     deleteAllList() {
         // Alle Einträge löschen
-        removeItem(this._list._storageKey);
+
+        const storageKey = this._list._storageKey;
+        localStorage.removeItem(storageKey);
         this.renderList();
     }
 
