@@ -10,6 +10,10 @@
   --primary-light: #c9d0d3;
 }
 
+::selection {
+  background: transparent;
+}
+
 body {
   border: none;
   background: #eee;
@@ -35,10 +39,11 @@ body {
   min-width: 100vw;
   max-width: 100vw;
   width: 100vw;
-  height: 70vh;
+  height: 100vh;
   overflow: auto;
   overflow: auto;
   background: var(--primary-light);
+  overflow: auto;
 }
 
 .frame:nth-child(even) {
@@ -247,7 +252,19 @@ body {
 
 
 .gu-transit{
-  opacity: .2;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.25) !important;
+
+  box-shadow: inset 1px 5px 5px rgba(0, 0, 0, 0.25);
+}
+
+.gu-transit .list-circle{
+  display: none;
+}
+
+.gu-transit .list-label{
+  color: transparent;
+
 }
 
 

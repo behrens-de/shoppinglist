@@ -97,6 +97,15 @@ class App {
                 this.renderList();
             });
 
+            // Wenn enter gedrückt wird
+            label.addEventListener('keypress', (i) => {
+                if (i.key === 'Enter') {
+                this.updateList(name, label.value, liste.id);
+                label.disabled = true;
+                this.renderList();
+                }
+            });
+
             // Wenn Enter
 
             label.classList.add('list-label');
@@ -345,7 +354,7 @@ frameSlide();
 
 
 
-//window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
+window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
 
 dragula([document.querySelector("#allLists")])
     .on('drag', function (el) {
@@ -356,11 +365,20 @@ dragula([document.querySelector("#allLists")])
         // Das letze element ist immer das welches man bewegt hat (Doppeltes Element)
         const demo = document.querySelectorAll('.list');
         let i = 0;
+        const reorderedList = [];
         demo.forEach(e=>{
-            console.log(i,e.dataset.id, e.dataset.name);
+            reorderedList.push({
+                name: e.dataset.name,
+                id: e.dataset.id,
+                sort: i
+            });
             i++;
         });
-        console.log(demo);
+
+        reorderedList.pop();
+
+        app._list.update(reorderedList);
+
     }).on('over', function (el, container) {
         container.className += ' ex-over';
     }).on('out', function (el, container) {
