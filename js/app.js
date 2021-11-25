@@ -91,7 +91,6 @@ class App {
             label.value = name;
             label.disabled = true;
             label.addEventListener('blur', (i) => {
-
                 this.updateList(name, label.value, liste.id);
                 label.disabled = true;
                 this.renderList();
@@ -100,13 +99,12 @@ class App {
             // Wenn enter gedrückt wird
             label.addEventListener('keypress', (i) => {
                 if (i.key === 'Enter') {
-                this.updateList(name, label.value, liste.id);
-                label.disabled = true;
-                this.renderList();
+                    this.updateList(name, label.value, liste.id);
+                    label.disabled = true;
+                    this.renderList();
                 }
             });
 
-            // Wenn Enter
 
             label.classList.add('list-label');
 
@@ -144,6 +142,10 @@ class App {
                 });
                 label.disabled = false;
                 label.focus();
+            });
+
+            label.addEventListener('dblclick', () => {
+                alert('yihaaa');
             });
 
             // Delet Clicked element
@@ -366,7 +368,7 @@ dragula([document.querySelector("#allLists")])
         const demo = document.querySelectorAll('.list');
         let i = 0;
         const reorderedList = [];
-        demo.forEach(e=>{
+        demo.forEach(e => {
             reorderedList.push({
                 name: e.dataset.name,
                 id: e.dataset.id,
@@ -384,3 +386,88 @@ dragula([document.querySelector("#allLists")])
     }).on('out', function (el, container) {
         container.className = container.className.replace('ex-over', '');
     });
+
+
+class localStorageChecker {
+
+    _stores = [];
+    _maxSize = 5 * 1024 * 1024; // 5MB => 5242880 Bytes
+
+    isSupported() {
+        let check = 'check';
+        try {
+            localStorage.setItem(check, check);
+            localStorage.removeItem(check);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    fetchStorage() {
+        if (!this.isSupported) return null;
+        for (let name in localStorage) {
+            if (!localStorage.hasOwnProperty(name)) {
+                continue;
+            }
+            let size = (localStorage[name].length + name.length) * 2;
+            this._stores.push({ name, size });
+        }
+        return this._stores;
+    }
+
+    getUsedKeys() {
+        this.init();
+        return this._stores.map(s => s.name);
+    }
+
+    getUsedSpace() {
+        this.init();
+        const Bytes = this._stores.map(s => s.size).reduce((a, b) => a + b);
+        const KBytes = parseFloat((Bytes / 1024).toFixed(2));
+        const MBytes = parseFloat((KBytes / 1024).toFixed(6));
+
+        return { Bytes, KBytes, MBytes }
+    }
+
+    getFreeSpace() {
+        this.init();
+        const used = this.getUsedSpace().Bytes;
+        const free = this._maxSize - used;
+        const procent = parseFloat(100 - (used / free * 100).toFixed(2));
+
+        return { Bytes: free, KBytes: free / 1024, MBytes: free / 1024 / 1024, procent };
+    }
+
+    init(){
+        if (!this.isSupported) return null;  
+        this.fetchStorage();
+    }
+
+}
+
+
+const lsc = new localStorageChecker;
+const info = () => {
+    if(lsc.isSupported()){
+        console.log(`
+        Supported: YES
+        Free Space: ${lsc.getFreeSpace().procent}
+        `);
+    } else {
+        console.log(`
+        Supported: NO
+        `); 
+    }
+
+}
+
+info();
+
+console.log(lsc.isSupported())
+console.log(lsc.fetchStorage())
+console.log(lsc.getUsedKeys())
+console.log(lsc.getUsedSpace());
+console.log(lsc._maxSize);
+console.log(lsc.getFreeSpace());
+
