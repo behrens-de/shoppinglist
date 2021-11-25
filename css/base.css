@@ -5,9 +5,9 @@
 
 :root {
   --primary-color: blue;
-  --primary-deep-dark: #1c2124;;
-  --primary-dark: #333b3f;;
-  --primary-light: #c9d0d3;;
+  --primary-deep-dark: #1c2124;
+  --primary-dark: #333b3f;
+  --primary-light: #c9d0d3;
 }
 
 body {
@@ -56,7 +56,7 @@ body {
 }
 .app-name {
   padding: 0.75rem;
-  font-size: .7rem;
+  font-size: 0.7rem;
   color: #fff;
 }
 
@@ -71,99 +71,134 @@ body {
 .app-footer > .app-name {
   padding: 0.5rem;
   font-size: 0.75rem;
-  opacity: .6;
+  opacity: 0.6;
   color: #fff;
 }
 
-.my-lists-header{
-padding:  .5rem 2rem 1rem 2rem;
-background: var(--primary-dark);
-border-bottom: 1px dashed rgba(79, 62, 62, 0.1);
+.my-lists-header {
+  padding: 0.5rem 2rem 1rem 2rem;
+  background: var(--primary-dark);
+  border-bottom: 1px dashed rgba(79, 62, 62, 0.1);
 }
 
-.my-lists-header h1{
-  margin: .5rem 0;
-  font-size: .9rem;
-  padding: 0 .5rem;
+.my-lists-header h1 {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  padding: 0 0.5rem;
   font-weight: 100;
   color: rgba(255, 255, 255, 0.3);
 }
 
-.my-lists-header form{
+.my-lists-header form {
   width: 100%;
   background: #fff;
   display: flex;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 0 .5rem rgba(0, 0, 0, .2);
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
 }
-.my-lists-header form input{
+.my-lists-header form input {
   flex-grow: 1;
   line-height: 1.5rem;
-  background: transparent ;
-  padding: 0 .5rem;
+  background: transparent;
+  padding: 0 0.5rem;
   border: none;
   outline: none;
 }
 
-.my-lists-header form input::placeholder{
-  color: rgba(0, 0, 0, .2);
+.my-lists-header form input::placeholder {
+  color: rgba(0, 0, 0, 0.2);
 }
 
-.my-lists-header form button{
+.my-lists-header form button {
   background: rgb(60, 142, 60);
   color: #fff;
   font-size: 1rem;
   border: none;
-  margin: .25rem;
+  margin: 0.25rem;
   width: 1.5rem;
   height: 1.5rem;
   line-height: 1.5rem;
   font-weight: bold;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
-
-.myLists{
+.myLists {
   margin: 0 1rem;
 }
-.list{
+.list {
   width: 100%;
+  position: relative;
   background: #b7c0c5;
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-radius: 1rem;
-  margin: .75rem 0;
+  margin: 0.75rem 0;
   overflow: hidden;
-  box-shadow: 0px 1px 0px rgba(0, 0, 0, .2), -1px -2px 0px rgba(255, 255, 255, 0.2);
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.2),
+    -1px -2px 0px rgba(255, 255, 255, 0.2);
 }
 
-.list-circle{
+.list-circle {
   line-height: 1.6rem;
   width: 1.6rem;
-  margin: 0 .2rem;
+  margin: 0 0.2rem;
   background: #cad4d8;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .2);
-  color: rgba(0, 0, 0, .3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.3);
   border-radius: 1rem;
   text-align: center;
   font-size: 1.1rem;
 }
 
-.list-label{
+.list-label {
   line-height: 2rem;
-  padding: 0 .5rem;
+  padding: 0 0.25rem;
   flex-grow: 1;
   font-size: 1rem;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333b3f;
 }
 
-.nolists{
+.nolists {
   width: calc(100% - 2rem);
   background: #fff;
-  padding: .5rem;
+  padding: 0.5rem;
   margin: 1rem;
-  border-radius: .5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.settingsList {
+  position: absolute;
+  right: -100vw;
+  height: 100%;
+  display: flex;
+  transition: right .5s;
+}
+
+.settingsListShow{
+  right: 0 !important; 
+}
+.editList,
+.deleteList {
+  height: 100%;
+  text-indent: -99999px;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.825rem;
+  margin: 0.125rem;
+  opacity: 0.25;
+}
+.editList {
+  background: url("./../img/icons/edit.png") 50% 50% no-repeat
+    rgb(255, 255, 255);
+  background-size: 60%;
+}
+.deleteList {
+  background: url("./../img/icons/trash.png") 50% 50% no-repeat
+    rgb(255, 255, 255);
+  background-size: 70%;
 }

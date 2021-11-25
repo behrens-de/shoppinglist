@@ -81,7 +81,6 @@ class App {
             const name = liste.name;
             const div = document.createElement('div');
             div.classList.add('list');
-            
 
             const circle = document.createElement('div');
             circle.innerHTML = name[0].toUpperCase();
@@ -91,19 +90,53 @@ class App {
             label.innerHTML = name;
             label.classList.add('list-label');
 
+            const settings = document.createElement('div');
+            settings.classList.add('settingsList');
+
+
+            const hammer = new Hammer(label);
+            let panTyp;
+            hammer.on("panleft panright panup pandown tap press panend", function (ev) {
+                const sl = document.querySelectorAll('.settingsListShow');
+                sl.forEach(el => {
+                    el.classList.remove('settingsListShow');
+                });
+                if (ev.type === 'panend' && panTyp === 'panleft') {
+                    console.log('PAN LEFT');
+                    settings.classList.add('settingsListShow');
+
+                }
+
+                else {
+                    panTyp = ev.type
+                }
+            });
+
+
+            // UpdateClicked Elemet
+            const edit = document.createElement('div');
+            edit.classList.add('editList');
+            edit.innerHTML = 'Ändern';
+
+            // Delet Clicked element
             const deleteBtn = document.createElement('div');
             deleteBtn.classList.add('deleteList');
             deleteBtn.dataset.id = liste.id;
             deleteBtn.innerHTML = 'Löschen';
-            deleteBtn.addEventListener('click', ()=>{
+            deleteBtn.addEventListener('click', () => {
                 this.deleteList(liste.id);
                 this.renderList();
             });
 
+            // Create Elements
             div.appendChild(circle);
             div.appendChild(label);
-            div.appendChild(deleteBtn);
+            settings.appendChild(edit);
+            settings.appendChild(deleteBtn);
+            div.appendChild(settings);
             target.appendChild(div);
+
+            this.deleteAllList();
         });
     }
 
@@ -111,6 +144,12 @@ class App {
         const oldList = JSON.parse(this._list.get()) ?? [];
         const newList = oldList.filter((l) => l.id !== id)
         list.update(newList);
+    }
+
+    deleteAllList() {
+        // Alle Einträge löschen
+        removeItem(this._list._storageKey);
+        this.renderList();
     }
 
     dialog(msg) {
@@ -139,7 +178,7 @@ class User {
 class List {
     _storageKey = 'lists';
 
-    update(newData){
+    update(newData) {
         localStorage.setItem(this._storageKey, JSON.stringify(newData));
     }
 
