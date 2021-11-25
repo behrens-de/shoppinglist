@@ -89,10 +89,9 @@ class App {
             const label = document.createElement('input');
             label.value = name;
             label.disabled = true;
-            label.addEventListener('blur',(i)=>{
-                console.log(name);
-                console.log(liste.id);
-                console.log(label.value);
+            label.addEventListener('blur', (i) => {
+
+                this.updateList(name, label.value, liste.id);
                 label.disabled = true;
             });
 
@@ -127,8 +126,13 @@ class App {
             const edit = document.createElement('div');
             edit.classList.add('editList');
             edit.innerHTML = 'Ändern';
-            edit.addEventListener('click',()=>{
+            edit.addEventListener('click', () => {
+                const sl = document.querySelectorAll('.settingsListShow');
+                sl.forEach(el => {
+                    el.classList.remove('settingsListShow');
+                });
                 label.disabled = false;
+                label.focus();
             });
 
             // Delet Clicked element
@@ -152,9 +156,9 @@ class App {
         });
 
         //this.deleteAllList();
-        const deleteAllList =document.createElement('div');
+        const deleteAllList = document.createElement('div');
         deleteAllList.innerHTML = 'Alle Listen und Einträge löschen';
-        deleteAllList.addEventListener('click', ()=>{
+        deleteAllList.addEventListener('click', () => {
             this.deleteAllList();
         });
 
@@ -173,6 +177,29 @@ class App {
         const storageKey = this._list._storageKey;
         localStorage.removeItem(storageKey);
         this.renderList();
+    }
+
+    updateList(oldValue, newValue, id) {
+
+
+        const Lists = JSON.parse(this._list.get()) ?? [];
+        // prüfen ob änderung vorliegt
+        if (oldValue !== newValue && newValue.length > 1) {
+            console.log('änderung liegt vor' + id);
+            const newList = Lists.map((list) => {
+                if (list.id === id) {
+                    list.name = newValue;
+                }
+                return list;
+            });
+
+            this._list.update(newList);
+
+        }
+
+
+
+
     }
 
     dialog(msg) {
@@ -312,3 +339,15 @@ frameSlide();
 
 
 
+
+window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
+
+dragula([document.querySelector("#allLists")]).on('drag', function (el) {
+    el.className = el.className.replace('ex-moved', '');
+}).on('drop', function (el) {
+    console.log('drop');
+}).on('over', function (el, container) {
+    container.className += ' ex-over';
+}).on('out', function (el, container) {
+    container.className = container.className.replace('ex-over', '');
+});
