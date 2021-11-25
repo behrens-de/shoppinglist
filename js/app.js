@@ -79,6 +79,7 @@ class App {
 
         getList.forEach((liste) => {
             const name = liste.name;
+            const listID = liste.id;
             const div = document.createElement('div');
             div.classList.add('list');
 
@@ -93,6 +94,7 @@ class App {
 
                 this.updateList(name, label.value, liste.id);
                 label.disabled = true;
+                this.renderList();
             });
 
             // Wenn Enter
@@ -151,6 +153,9 @@ class App {
             settings.appendChild(edit);
             settings.appendChild(deleteBtn);
             div.appendChild(settings);
+
+            div.dataset.id = listID;
+            div.dataset.name = name;
 
             target.appendChild(div);
         });
@@ -340,14 +345,24 @@ frameSlide();
 
 
 
-window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
+//window.addEventListener("touchmove", function (event) { event.preventDefault(); }, { passive: false });
 
-dragula([document.querySelector("#allLists")]).on('drag', function (el) {
-    el.className = el.className.replace('ex-moved', '');
-}).on('drop', function (el) {
-    console.log('drop');
-}).on('over', function (el, container) {
-    container.className += ' ex-over';
-}).on('out', function (el, container) {
-    container.className = container.className.replace('ex-over', '');
-});
+dragula([document.querySelector("#allLists")])
+    .on('drag', function (el) {
+        el.className = el.className.replace('ex-moved', '');
+    }).on('drop', function (el) {
+        console.log('drop');
+
+        // Das letze element ist immer das welches man bewegt hat (Doppeltes Element)
+        const demo = document.querySelectorAll('.list');
+        let i = 0;
+        demo.forEach(e=>{
+            console.log(i,e.dataset.id, e.dataset.name);
+            i++;
+        });
+        console.log(demo);
+    }).on('over', function (el, container) {
+        container.className += ' ex-over';
+    }).on('out', function (el, container) {
+        container.className = container.className.replace('ex-over', '');
+    });
