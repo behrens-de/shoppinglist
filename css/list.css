@@ -5,16 +5,17 @@
 
 body {
   border: none;
-  background: #eee;
+  background: #c9d0d3;
   font-family: monospace;
 }
 
 #addlist {
   width: 100%;
-  background: green;
+  background: #333b3f;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
   padding: 1rem;
 }
@@ -29,10 +30,12 @@ body {
 #addlist form {
   background: white;
   width: 100%;
+  max-width: 650px;
   display: flex;
   flex-direction: row;
   border-radius: 0.25rem;
   border: 2px solid #fff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 #addlist form input {

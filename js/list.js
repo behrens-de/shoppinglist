@@ -148,7 +148,7 @@ class Elements {
         const form = new Form;
         const html = new HTML;
 
-        const headline = html.headline({ label: 'Liste anlegen' });
+        const headline = html.headline({ label: 'Neue Liste anlegen' });
         const div = html.div({ id: 'addlist' });
 
         div.appendChild(headline);
@@ -172,7 +172,6 @@ class Elements {
                 mask.remove();
                 setTimeout(() => {
                     mask.remove();
-                    
                 }, 500);
             }, 2500);
         }, 100);
