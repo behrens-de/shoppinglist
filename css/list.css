@@ -1,0 +1,42 @@
+@import url("./normal.css");
+* {
+  box-sizing: border-box;
+}
+
+body {
+  border: none;
+  background: #eee;
+  font-family:  monospace;
+}
+
+
+#addlist{
+  width: 100%; background: green;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+#addlist form{
+  background: white;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  
+}
+
+#addlist form input{
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  line-height: 1.5rem;
+  padding: .25rem;
+}
+
+#addlist form button{
+  flex-grow: 0;
+  background: black;
+  border: none;
+  margin: .25rem;
+  color: #fff;
+}
