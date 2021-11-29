@@ -67,23 +67,17 @@ class Validator {
 
         const value = input.value;
         const list = new List;
+        const element = new Elements;
 
         if (value.length > 1 && !list.exist(value)) {
             list.set({ name: value});
-            this.displayStatus(form, true);
+            element.toast({msg: `Liste <b>${value}</b> wurde angelegt!`,status:'success'});
             input.value = '';
         } else {
-            this.displayStatus(form, false);
+            element.toast({msg: `Liste ${value} konnte nicht angelegt werden`});
         }
     }
 
-    displayStatus(e,success = false){
-        const className = success ? 'greenBorder' : 'redBorder';
-        e.classList.add(className);
-        setTimeout(() => {
-            e.classList.remove(className);
-        }, 1000);
-    }
 }
 
 
@@ -150,7 +144,7 @@ class List {
 
 class Elements {
 
-    addListForm() {
+    formAddList() {
         const form = new Form;
         const html = new HTML;
 
@@ -162,6 +156,28 @@ class Elements {
         return div;
     }
 
+    toast({msg = null, status = null}){
+        const html = new HTML;
+        const thisClass = status !== 'success' ? 'toast-info-error': 'toast-info'
+        const mask = html.div({ id: 'mask' });
+        const info = html.div({ cname: thisClass});
+        info.innerHTML = msg??'NO INFO';
+
+        mask.appendChild(info);
+        document.body.appendChild(mask);
+        setTimeout(() => {
+            info.classList.add('rightAbsolute');
+            setTimeout(() => {
+                info.classList.remove('rightAbsolute');
+                mask.remove();
+                setTimeout(() => {
+                    mask.remove();
+                    
+                }, 500);
+            }, 2500);
+        }, 100);
+    }
+
 }
 
 class UI extends Elements {
@@ -169,7 +185,7 @@ class UI extends Elements {
 
     init(target) {
         const app = document.querySelector(target);
-        app.appendChild(this.addListForm());
+        app.appendChild(this.formAddList());
     }
 }
 
